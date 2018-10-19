@@ -59,6 +59,9 @@ int main() {
 			cout << field[i][j].getInfo() << "\t\t";
 		}
 		cout << endl << endl << endl;
+		if (i % 2 == 0) {
+			cout << "\t";
+		}
 	}
 
 	Sleep(8000);
