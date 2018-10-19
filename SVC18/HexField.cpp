@@ -8,6 +8,8 @@
 using namespace std;
 
 /*
+	Hallo, Ich habe diese datei in Visual Studio bearbeitet und werde sie mit Visual Studio über die GitHub extension wieder mergen gz. Mischa
+
 	Class HexTile
 
 	fieldtype	ressource
