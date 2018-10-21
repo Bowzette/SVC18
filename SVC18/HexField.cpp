@@ -8,6 +8,8 @@
 
 using namespace std;
 
+enum fieldType { HILL, FOREST, MOUNTAIN, FIELD, PASTURE, DESERT }; //may change position
+
 /*
 	Class HexTile
 
@@ -24,46 +26,52 @@ using namespace std;
 	gamedevelopment.tutsplus(dot)com/tutorials/introduction-to-axial-coordinates-for-hexagonal-tile-based-games--cms-28820
 	cplusplus(dot)com/forum/general/833/
 */
+
 class HexTile {
-	public:
+	private:
 		int x, y, z;
-		enum fieldType { HILL, FOREST, MOUNTAIN, FIELD, PASTURE, DESERT };
-		fieldType fieldtype;
-		bool isRobber;
+		fieldType type;
+		bool robberState;
 		int numberToken;
+	public:
 		HexTile() {}
-		HexTile(int x, int y, fieldType fieldType) {
+		HexTile(int x, int y, fieldType type) {
 			this->x = x;
 			this->y = (y-(floor(x/2))); //double to int may be a problem???
-			z = -x - this->y; //TODO: improve code
-			this->fieldtype = fieldType;
+			z = -x - this->y;
+			this->type = type;
 		}
-		string getInfo() {
+
+		string getInfo() { //DEBUG
 			return to_string(x) + "," + to_string(y) + "," + to_string(z);
 		}
+
+		int getX() { return x; }
+		int getY() { return y; }
+		int getZ() { return z; }
+		fieldType getType() { return type; }
+		bool getRobberState() { return robberState; }
+		int getNumberToken() { return numberToken; }
+
+		void setType(fieldType type) { this->type = type; }
+		void setRobberState(bool robberState) { this->robberState = robberState; }
+		void setNumberToken(int numberToken) { this->numberToken = numberToken; }
 };
 
 class HexField {
 	public:
-		HexField() {} //create standard game field here not in main()
+		HexField() {};
+		HexField(int TESTSIZE) { //Creates a square field with a TESTSIZE size
+			vector< vector<HexTile> > field(TESTSIZE, vector<HexTile>(TESTSIZE));
+			for (int i = 0; i < TESTSIZE; i++) {
+				for (int j = 0; j < TESTSIZE; j++) {
+					field[i][j] = HexTile(i, j, HILL);
+				}
+			}
+		}
 };
 
 int main() {
-	srand(time(0));
-	cout << "map generator test" << endl << endl << endl;
-	int TESTSIZE = 5;
-	vector< vector<HexTile> > field(TESTSIZE, vector<HexTile>(TESTSIZE));
-	for (int i = 0; i < TESTSIZE; i++) {
-		for (int j = 0; j < TESTSIZE; j++) {
-			field[i][j] = HexTile(i, j, HexTile::HILL);
-			cout << field[i][j].getInfo() << "\t\t";
-		}
-		cout << endl << endl << endl;
-		if (i % 2 == 0) {
-			cout << "\t";
-		}
-	}
-
-	Sleep(8000);
+	HexField::HexField(5);
 	return 0;
 };
