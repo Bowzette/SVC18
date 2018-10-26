@@ -11,6 +11,7 @@ using namespace std;
 enum fieldType { HILL, FOREST, MOUNTAIN, FIELD, PASTURE, DESERT }; //may change position
 
 /*
+	Changes: 
 	Class HexTile
 
 	fieldtype	ressource
